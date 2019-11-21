@@ -4,7 +4,7 @@
  import { MaterialCommunityIcons } from "@expo/vector-icons";
  import { LinearGradient } from 'expo-linear-gradient';
 
- export default function Weather({ temp, condition }){
+ export default function Weather({ temp }){
      return (   
         <LinearGradient
           colors={['#4c669f', '#3b5998', '#192f6a']}
@@ -25,7 +25,7 @@
  }
 
  Weather.propTypes = {
-     temp:PropTypes.number.isRequired,
+     temp: PropTypes.number.isRequired,
      condition: PropTypes.oneOf([
          "Thunderstorm", 
          "Drizzle", 
@@ -40,8 +40,7 @@
          "Ash", 
          "Squall",  
          "Tornado",  
-         "Clear", 
-         "Clouds"
+         "Clear", "Clouds"
         ]).isRequired
  };
 

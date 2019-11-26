@@ -1,8 +1,20 @@
 import React from "react";
-import { StyleSheet, View, Text, StatusBar } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  StatusBar,
+  ScrollView,
+  Dimensions,
+  Button
+} from "react-native";
 import PropTypes from "prop-types";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { LinearGradient } from "expo-linear-gradient";
+// import { SquareView } from "react-native-square-view";
+import Dialog, { DialogContent } from "react-native-popup-dialog";
+
+const { width, height } = Dimensions.get("window");
 
 const weatherOptions = {
   Thunderstorm: {
@@ -31,7 +43,7 @@ const weatherOptions = {
   },
   Smoke: {
     iconName: "weather-fog",
-    gradient: ["#9a8478", "#1e130c"],
+    gradient: ["#9a8478", "#1e110c"],
     title: "Clear Title",
     subtitle: "subtitle clear clear"
   },
@@ -79,7 +91,7 @@ const weatherOptions = {
   },
   Tornado: {
     iconName: "weather-hurricane",
-    gradient: ["#243B55", "#141E30"],
+    gradient: ["#243B55", "#141E10"],
     title: "Clear Title",
     subtitle: "subtitle clear clear"
   },
@@ -97,30 +109,171 @@ const weatherOptions = {
   }
 };
 
-export default function Weather({ temp, condition }) {
+export default function Weather({
+  temp,
+  condition,
+  cgv,
+  _onPress,
+  _onTouchOutside,
+  visible
+}) {
   console.log("Weather.js - temp: " + temp);
   console.log("Weather.js - condition: " + condition);
+
   return (
-    <LinearGradient
-      colors={weatherOptions[condition].gradient}
-      style={styles.container}
+    // <LinearGradient
+    //   colors={weatherOptions[condition].gradient}
+    //   style={styles.container}
+    // >
+    //   <StatusBar barStyle="light-content" />
+    //   <View style={styles.halfContainer}>
+    //     <MaterialCommunityIcons
+    //       size={96}
+    //       name={weatherOptions[condition].iconName || "weather-sunset"}
+    //       color="white"
+    //     />
+    //     <Text style={styles.temp}>{temp}℃</Text>
+    //   </View>
+
+    <ScrollView
+      style={{ flex: 1, paddingHorizontal: 10, paddingVertical: 100 }}
     >
-      <StatusBar barStyle="light-content" />
-      <View style={styles.halfContainer}>
-        <MaterialCommunityIcons
-          size={96}
-          name={weatherOptions[condition].iconName || "weather-sunset"}
-          color="white"
+      <View style={styles.container}>
+        <Button
+          title="Show Dialog"
+          onPress={() => {
+            _onPress();
+          }}
         />
-        <Text style={styles.temp}>{temp}℃</Text>
+        <Dialog
+          style={{ flex: 2, paddingHorizontal: 10, height: 500 }}
+          visible={visible}
+          onTouchOutside={() => {
+            _onTouchOutside();
+          }}
+        >
+          <DialogContent
+            style={{
+              height: height / 2,
+              width: width - 100,
+              alignItems: "center"
+            }}
+          >
+            <View
+              style={{ flex: 1, flexDirection: "row", paddingVertical: 5 }}
+            ></View>
+            <View style={{ flex: 1, flexDirection: "row", paddingVertical: 5 }}>
+              <View
+                style={[
+                  styles.commonStyle,
+                  {
+                    width: 10,
+                    height: 10,
+                    position: "absolute",
+                    left: 92,
+                    top: 36,
+                    backgroundColor: "red"
+                  }
+                ]}
+              />
+              <View
+                style={[
+                  styles.commonStyle,
+                  {
+                    width: 10,
+                    height: 10,
+                    backgroundColor: "powderblue"
+                  }
+                ]}
+              />
+              <View
+                style={[
+                  styles.commonStyle,
+                  { width: 10, height: 10, backgroundColor: "skyblue" }
+                ]}
+              />
+              <View
+                style={[
+                  styles.commonStyle,
+                  { width: 10, height: 10, backgroundColor: "steelblue" }
+                ]}
+              />
+              <View
+                style={[
+                  styles.commonStyle,
+                  {
+                    width: 10,
+                    height: 10,
+                    backgroundColor: "powderblue"
+                  }
+                ]}
+              />
+              <View
+                style={[
+                  styles.commonStyle,
+                  { width: 10, height: 10, backgroundColor: "skyblue" }
+                ]}
+              />
+              <View
+                style={[
+                  styles.commonStyle,
+                  { width: 10, height: 10, backgroundColor: "steelblue" }
+                ]}
+              />
+              <View
+                style={[
+                  styles.commonStyle,
+                  {
+                    width: 10,
+                    height: 10,
+                    backgroundColor: "powderblue"
+                  }
+                ]}
+              />
+              <View
+                style={[
+                  styles.commonStyle,
+                  { width: 10, height: 10, backgroundColor: "skyblue" }
+                ]}
+              />
+              <View
+                style={[
+                  styles.commonStyle,
+                  { width: 10, height: 10, backgroundColor: "steelblue" }
+                ]}
+              />
+            </View>
+            <View style={{ flex: 1, flexDirection: "row" }}>
+              <View
+                style={[
+                  styles.commonStyle,
+                  { width: 10, height: 10, backgroundColor: "powderblue" }
+                ]}
+              />
+              <View
+                style={[
+                  styles.commonStyle,
+                  { width: 10, height: 10, backgroundColor: "skyblue" }
+                ]}
+              />
+              <View
+                style={[
+                  styles.commonStyle,
+                  { width: 10, height: 10, backgroundColor: "steelblue" }
+                ]}
+              />
+            </View>
+          </DialogContent>
+        </Dialog>
       </View>
-      <View style={{ ...styles.halfContainer, ...styles.textContainer }}>
-        <Text style={styles.title}>{weatherOptions[condition].title}</Text>
-        <Text style={styles.subtitle}>
-          {weatherOptions[condition].subtitle}
-        </Text>
-      </View>
-    </LinearGradient>
+    </ScrollView>
+    //   <View style={{ ...styles.halfContainer, ...styles.textContainer }}>
+    //     <Text style={styles.title}>{weatherOptions[condition].title}</Text>
+    //     <Text style={styles.subtitle}>
+    //       {weatherOptions[condition].subtitle}
+    //     </Text>
+    //   </View>
+    // </LinearGradient>
   );
 }
 
@@ -163,7 +316,7 @@ const styles = StyleSheet.create({
   title: {
     color: "white",
     fontSize: 44,
-    fontWeight: "300",
+    fontWeight: "100",
     marginBottom: 10
   },
   subtitle: {
@@ -172,7 +325,28 @@ const styles = StyleSheet.create({
     fontSize: 24
   },
   textContainer: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     alignItems: "flex-start"
+  },
+  container2: {
+    flex: 2,
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "white",
+    paddingHorizontal: 10,
+    paddingVertical: 40
+  },
+  fixedRatio: {
+    backgroundColor: "rebeccapurple",
+    flex: 16,
+    width: 4,
+    height: 4
+  },
+  commonStyle: {
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+    borderBottomLeftRadius: 5,
+    borderBottomRightRadius: 5
   }
 });

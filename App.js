@@ -10,7 +10,8 @@ const API_KEY = "ee2bafb12fcb69c1bbe93fa228ff1e7c";
 export default class extends React.Component {
   state = {
     isLoading: true,
-    condition: "Clear"
+    condition: "Clear",
+    visible: false
   };
   getWeather = async (latitude, longitude) => {
     console.log("App.js(getWeather) - latitude : " + latitude);
@@ -23,10 +24,35 @@ export default class extends React.Component {
     } = await Axios.get(
       `http://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&APPID=${API_KEY}&units=metric`
     );
+    const ret = await Axios({
+      method: "post",
+      url:
+        "http://www.cgv.co.kr/common/showtimes/iframeTheater.aspx/GetSeatList",
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+      data: {
+        theatercode: "0013",
+        palyymd: "20191127",
+        screencode: "018",
+        playnum: "1",
+        starttime: "0830",
+        endtime: "1048",
+        theatername: "CGV 용산아이파크몰",
+        cnt: "483",
+        screenname: "IMAX관"
+      }
+    });
+    console.log("ret : " + ret.data.d);
+    ret.data.d = ret.data.d.replace(
+      /div class=\\"\.*\\">/gi,
+      "div className={styles..*}>"
+    );
+    console.log("ret : " + ret.data.d);
+
     this.setState({
       isLoading: false,
       condition: weather[0].main,
       temp
+      // cgv: ret.data.d
     });
     console.log("App.js(getWeather) - temp : " + temp);
     console.log("App.js(getWeather) - weather : " + weather);
@@ -59,7 +85,7 @@ export default class extends React.Component {
   }
 
   render() {
-    const { isLoading, temp, condition } = this.state;
+    const { isLoading, temp, condition, cgv } = this.state;
 
     console.log("App.js - isLoading : " + this.state.isLoading);
     console.log("App.js - temp : " + this.state.temp);
@@ -67,7 +93,25 @@ export default class extends React.Component {
     return isLoading ? (
       <Loading />
     ) : (
-      <Weather temp={Math.round(temp)} condition={condition} />
+      <Weather
+        temp={Math.round(temp)}
+        condition={condition}
+        cgv={cgv}
+        visible={this.state.visible}
+        _onPress={this._onPress}
+        _onTouchOutside={this._onTouchOutside}
+      />
     );
   }
+
+  _onPress = () => {
+    this.setState({
+      visible: true
+    });
+  };
+  _onTouchOutside = () => {
+    this.setState({
+      visible: false
+    });
+  };
 }

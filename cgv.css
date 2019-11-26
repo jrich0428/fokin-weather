@@ -1,0 +1,52 @@
+.mini_seats {
+  position: absolute;
+  top: 30px;
+  right: 15px;
+  left: 15px;
+  bottom: 15px;
+}
+.mini_exits {
+  position: absolute;
+  top: 15px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.mini_seat {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: block;
+  width: 4px;
+  height: 4px;
+}
+.mini_seat {
+  display: block;
+  width: 3px;
+  height: 3px;
+  background-color: #8e8e8e;
+}
+.sweet {
+  background-color: #d9486e;
+}
+.veat {
+  background-color: #13295f;
+}
+.fourd {
+  background-color: #74501c;
+}
+.wide {
+  background-color: #0b5741;
+}
+.couple {
+  background-color: #794491;
+}
+.handicap {
+  background-color: #7cae39;
+}
+.reserved {
+  background-color: #4f4f4f;
+}
+.cinekids {
+  background-color: #2782b1;
+}

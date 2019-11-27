@@ -41,12 +41,12 @@ export default class extends React.Component {
         screenname: "IMAX관"
       }
     });
-    console.log("ret : " + ret.data.d);
-    ret.data.d = ret.data.d.replace(
-      /div class=\\"\.*\\">/gi,
-      "div className={styles..*}>"
-    );
-    console.log("ret : " + ret.data.d);
+    // console.log("ret : " + ret.data.d);
+    // ret.data.d = ret.data.d.replace(
+    //   /div class=\\"\.*\\">/gi,
+    //   "div className={styles..*}>"
+    // );
+    // console.log("ret : " + ret.data.d);
 
     this.setState({
       isLoading: false,
@@ -98,20 +98,7 @@ export default class extends React.Component {
         condition={condition}
         cgv={cgv}
         visible={this.state.visible}
-        _onPress={this._onPress}
-        _onTouchOutside={this._onTouchOutside}
       />
     );
   }
-
-  _onPress = () => {
-    this.setState({
-      visible: true
-    });
-  };
-  _onTouchOutside = () => {
-    this.setState({
-      visible: false
-    });
-  };
 }
